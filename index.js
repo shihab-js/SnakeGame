@@ -31,7 +31,10 @@ let dy = 0;
 //start game
 main();
 
+
+//main function call repeatedly to keep the game running
 function main() {
+    if (has_game_ended()) return;
     changing_direction = false;
     setTimeout(function onTick() {
         clearCanvas();
@@ -112,5 +115,19 @@ function change_direction(event) {
         dx = 0;
         dy = 10;
     }
+
+}
+
+function has_game_ended() {
+    for (let i = 4; i < snake.length; i++) {
+        if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
+    }
+
+    const hitLeftWall = snake[0].x < 0;
+    const hitRightWal = snake[0].x > snakeboard.width - 10;
+    const hitUpWall = snake[0].y < 0;
+    const hitDownWall = snake[0].y > snakeboard.height - 10;
+
+    return hitLeftWall || hitRightWal || hitUpWall || hitDownWall;
 
 }
