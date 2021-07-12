@@ -8,6 +8,12 @@ const snakeboard = document.getElementById('myCanvas');
 //return a two dimentional element
 const snakeboard_ctx = snakeboard.getContext('2d');
 
+//true if changing direction
+let changing_direction = false;
+
+document.addEventListener("keydown", change_direction);
+
+
 let snake = [
     { x: 200, y: 200},
     { x: 190, y: 200},
@@ -26,6 +32,7 @@ let dy = 0;
 main();
 
 function main() {
+    changing_direction = false;
     setTimeout(function onTick() {
         clearCanvas();
         drawSnake();
@@ -71,4 +78,39 @@ function moveSnake() {
     //add new head to the beginning of the snake body
     snake.unshift(head);
     snake.pop();
+}
+
+function change_direction(event) {
+    const LEFT_KEY = 37;
+    const RIGHT_KEY = 39;
+    const UP_KEY = 38;
+    const DOWN_KEY = 40;
+
+    //prevent the snake from reversing
+    if (changing_direction) return;
+    changing_direction = true;
+    const keyPressed = event.keyCode;
+
+    const goingUp = dy === -10;
+    const goingDown = dy === 10;
+    const goingLeft = dx === -10;
+    const goingRight = dx === 10;
+
+    if (keyPressed === LEFT_KEY && !goingRight) {
+        dx = -10;
+        dy = 0;
+    }
+    if (keyPressed === RIGHT_KEY && !goingLeft) {
+        dx = 10;
+        dy = 0;
+    }
+    if (keyPressed === UP_KEY && !goingDown) {
+        dx = 0;
+        dy = -10;
+    }
+    if (keyPressed === DOWN_KEY && !goingUp) {
+        dx = 0;
+        dy = 10;
+    }
+
 }
