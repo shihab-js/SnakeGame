@@ -16,13 +16,22 @@ let snake = [
     { x: 160, y: 200}
 ];
 
+//horizontal velocity
+let dx = 10;
+//vertical velocity
+let dy = 0;
+
 
 //start game
 main();
 
 function main() {
-    clearCanvas();
-    drawSnake();
+    setTimeout(function onTick() {
+        clearCanvas();
+        drawSnake();
+        moveSnake();
+        main();
+    }, 100);
 }
 
 
@@ -54,4 +63,12 @@ function drawSnakePart(snakePart)
 function drawSnake() {
     //draw each part
     snake.forEach(drawSnakePart);
+}
+
+function moveSnake() {
+    //create the new snake head
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+    //add new head to the beginning of the snake body
+    snake.unshift(head);
+    snake.pop();
 }
