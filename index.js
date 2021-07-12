@@ -21,9 +21,22 @@ let snake = [
 main();
 
 function main() {
+    clearCanvas();
     drawSnake();
 }
 
+
+//draw a border around the canvas
+function clearCanvas() {
+    //select the color to fill the canvas
+    snakeboard_ctx.fillStyle = board_background;
+    //select the color to fill the border of the canvas
+    snakeboard_ctx.strokeStyle = board_border;
+    //draw a fill rectangle to cover the entire canvas
+    snakeboard_ctx.fillRect(0, 0, snakeboard.width, snakeboard.height);
+    //draw the border of the canvas
+    snakeboard_ctx.strokeRect(0, 0, snakeboard.width, snakeboard.height);
+}
 
 //draw the snake part
 function drawSnakePart(snakePart)
