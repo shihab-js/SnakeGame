@@ -1,6 +1,6 @@
 * {
-    padding: 0; margin: 0;
+    padding: 0; margin: 0; background:#00ff90;
 }
 canvas{
-    display: block; margin: 0;
+   display: block; margin: 0 auto;
 }
