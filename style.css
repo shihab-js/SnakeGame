@@ -1,6 +1,13 @@
 * {
-    padding: 0; margin: 0; background:#00ff90;
+    background:lightblue;
 }
-canvas{
-   display: block; margin: 0 auto;
+#snakeboard{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+#score{
+    text-align:center;
+    font-size:90px;
 }
