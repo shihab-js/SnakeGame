@@ -27,10 +27,15 @@ let dx = 10;
 //vertical velocity
 let dy = 0;
 
+let food_x;
+let food_y;
+let score = 0;
+
 
 //start game
 main();
 
+gen_food();
 
 //main function call repeatedly to keep the game running
 function main() {
@@ -38,8 +43,9 @@ function main() {
     changing_direction = false;
     setTimeout(function onTick() {
         clearCanvas();
-        drawSnake();
+        draw_food();
         moveSnake();
+        drawSnake();
         main();
     }, 100);
 }
@@ -80,7 +86,19 @@ function moveSnake() {
     const head = { x: snake[0].x + dx, y: snake[0].y + dy };
     //add new head to the beginning of the snake body
     snake.unshift(head);
-    snake.pop();
+
+    const has_eatten_food = snake[0].x === food_x && snake[0].y === food_y;
+
+    if (has_eatten_food) {
+        //Increase score
+        score += 10;
+        //Display the score
+        document.getElementById('score').innerHTML = score;
+        //Generate new food location
+        gen_food();
+    } else {
+        snake.pop();
+    }
 }
 
 function change_direction(event) {
@@ -117,6 +135,40 @@ function change_direction(event) {
     }
 
 }
+
+
+function draw_food() {
+    //select the color to fill the drawing
+    snakeboard_ctx.fillStyle = 'lightblue';
+    //select the color to border of the food
+    snakeboard_ctx.strokeStyle = 'drakblue';
+    //draw a rectangle to cover the entire food
+    snakeboard_ctx.fillRect(food_x, food_y, 10, 10);
+    //draw the border of the food
+    snakeboard_ctx.strokeRect(food_x, food_y, 10, 10);
+
+}
+
+
+function random_food(min, max) {
+
+    return Math.round((Math.random()* (max-min)+min) / 10) * 10;
+}
+
+function gen_food() {
+    food_x = random_food(0, snakeboard.width-10);
+    food_y = random_food(0, snakeboard.height-10);
+
+    snake.forEach(function has_snake_eatten_food(part) {
+
+        const has_eatten = part.x == food_x && part.y == food_y;
+        if (has_eatten) {
+            gen_food();
+        }
+
+    });
+}
+
 
 function has_game_ended() {
     for (let i = 4; i < snake.length; i++) {
