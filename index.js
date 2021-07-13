@@ -4,7 +4,7 @@ const snake_col = 'lightblue';
 const snake_border = 'darkblue';
 
 //get the canvas element
-const snakeboard = document.getElementById('myCanvas');
+const snakeboard = document.getElementById('snakeboard');
 //return a two dimentional element
 const snakeboard_ctx = snakeboard.getContext('2d');
 
